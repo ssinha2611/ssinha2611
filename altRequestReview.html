@@ -1,0 +1,136 @@
+<template>
+  <p>{activeSectionsMessage}</p>
+  <lightning-card>
+    <lightning-accordion allow-multiple-sections-open
+                         onsectiontoggle={handleSectionToggle}
+                         active-section-name={activeSections}>
+        <lightning-accordion-section name="A" label="Request 01">
+        <lightning-button-icon icon-name="utility:edit"
+                  
+                        label="Edit"
+                  
+                        title="Edit"
+                  
+                        onclick={customShowModalPopup}
+                  
+                        class="slds-float_right" size='x-small' style="vertical-align: top;">
+          </lightning-button-icon>
+      <!-- modal start -->
+                      
+      <template if:true={customFormModal}>
+                      
+                      
+                      
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        
+        <div class="slds-modal__container">
+        
+        <!-- modal header start -->
+        
+        <header class="slds-modal__header">
+        
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={customHideModalPopup}>
+        
+        <lightning-icon icon-name="utility:close"
+        
+        alternative-text="close"
+        
+        variant="inverse"
+        
+        size="small" ></lightning-icon>
+        
+        <span class="slds-assistive-text">Close</span>
+        
+        </button>
+        <h2 class="slds-text-heading_medium slds-hyphenate">Edit Request</h2>
+        </header>
+        <lightning-record-edit-form record-id={recordId} object-api-name="Case" onsuccess={handleSuccess} onsubmit ={handleSubmit}>
+        <!-- modal body start -->
+        <div class="slds-modal__content slds-p-around_medium">
+        <div class="slds-grid slds-wrap">
+        
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="AccountId">Household</label>
+          <lightning-output-field field-name="AccountId" variant="label-hidden"> </lightning-output-field>
+        </div>
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="ContactId">Related Contact</label>
+          <lightning-output-field field-name="ContactId" variant="label-hidden" ></lightning-output-field>
+        </div>
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="FinServ__FinancialAccount__c">Financial Account</label>
+          <lightning-output-field field-name="FinServ__FinancialAccount__c" variant="label-hidden" ></lightning-output-field>
+        </div>
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="On_Off_Platform__c">On/Off Platform</label>
+          <lightning-input-field field-name="On_Off_Platform__c" variant="label-hidden" ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="Fund_Name__c">Fund Name</label>
+          <lightning-input-field field-name="Fund_Name__c" variant="label-hidden" ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="Amount__c">Subscription Amount</label>
+          <lightning-input-field field-name="Amount__c" variant="label-hidden" ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_4-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+          <label for="Fund_Addition__c">Fund Addition</label>
+          <lightning-input-field field-name="Fund_Addition__c" variant="label-hidden" ></lightning-input-field>
+        </div>
+        </div>
+        </div>
+      
+        <!-- modal footer start-->
+        <footer class="slds-modal__footer">
+          <lightning-button class="slds-m-left_x-small" variant="brand" type="submit" name="update" label="Update" >
+          </lightning-button>
+          <lightning-button variant="destructive" label="Cancel" onclick={customHideModalPopup} class="slds-m-right_x-small"></lightning-button>
+        </footer>
+      </lightning-record-edit-form>
+        </div>
+        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open">
+        </div>
+        </template>
+        <!-- modal end -->
+    <lightning-record-edit-form
+    record-id={recordId}
+    object-api-name="Case">
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_4-of-12">
+        <label for="AccountId">Household</label>
+        <lightning-output-field field-name="AccountId" variant="label-hidden"> </lightning-output-field>
+        <br></br>
+        <label for="On_Off_Platform__c">On/Off Platform</label>
+        <lightning-output-field field-name="On_Off_Platform__c" variant="label-hidden" ></lightning-output-field>
+        <br></br>
+        <label for="Fund_Addition__c">Fund Addition</label>
+        <lightning-output-field field-name="Fund_Addition__c" variant="label-hidden" ></lightning-output-field>
+        <br></br>
+      </div>
+      <div class="slds-col slds-size_4-of-12">
+        <label for="ContactId">Related Contact</label>
+        <lightning-output-field field-name="ContactId" variant="label-hidden"></lightning-output-field>
+        <br></br>
+        <label for="Fund_Name__c">Fund Name</label>
+        <lightning-output-field field-name="Fund_Name__c" variant="label-hidden"></lightning-output-field>
+        <br></br>
+        <label for="Amount__c">Senior Wealth Advisor</label>
+        <lightning-output-field field-name="Advisor__c" variant="label-hidden"></lightning-output-field>
+      </div>
+      <div class="slds-col slds-size_4-of-12">
+        <label for="FinServ__FinancialAccount__c">Financial Account</label>
+        <lightning-output-field field-name="FinServ__FinancialAccount__c" variant="label-hidden"></lightning-output-field>
+        <br></br>
+        <label for="Amount__c">Subscription Amount</label>
+        <lightning-output-field field-name="Amount__c" variant="label-hidden"></lightning-output-field>
+        <br></br>
+    </div>
+    </div>
+</lightning-record-edit-form>
+</lightning-accordion-section>
+</lightning-accordion>
+</lightning-card>
+</template>
+</template> 
